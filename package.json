@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node rest/server.js",
+    "test": "mocha rest/test/**/*test.js --timeout 1000",
+    "test-external": "mocha rest/test/external/**/*.test.js --timeout 10000"
   },
   "repository": {
     "type": "git",
@@ -20,9 +22,13 @@
   "homepage": "https://github.com/juliodelimas/pgats-2025-02-base#readme",
   "dependencies": {
     "apollo-server-express": "^3.13.0",
+    "chai": "^4.5.0",
     "express": "^4.21.2",
     "graphql": "^16.11.0",
     "jsonwebtoken": "^9.0.2",
+    "mocha": "^11.7.2",
+    "sinon": "^21.0.0",
+    "supertest": "^7.1.4",
     "swagger-ui-express": "^5.0.1"
   }
 }
