@@ -11,7 +11,7 @@ const checkoutService = require('../../../src/services/checkoutService')
 
 //Testes
 
-describe('Checkout External', () => {
+describe('Checkout Controller', () => {
     describe('POST /api/checkout', () =>{
 
         beforeEach(async () =>{
