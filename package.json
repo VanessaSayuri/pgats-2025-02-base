@@ -6,7 +6,8 @@
   "scripts": {
     "start-rest": "node rest/server.js",
     "test": "mocha rest/test/**/*test.js --timeout 1000",
-    "test-external": "mocha rest/test/external/**/*.test.js --timeout 10000"
+    "test-external": "mocha rest/test/external/**/*.test.js --timeout 10000",
+    "test-controller": "mocha rest/test/controller/**/*.test.js --timeout 1000"
   },
   "repository": {
     "type": "git",
