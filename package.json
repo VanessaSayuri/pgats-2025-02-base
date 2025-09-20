@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start-rest": "node rest/server.js",
-    "test": "mocha rest/test/**/*test.js --timeout 1000",
-    "test-external": "mocha rest/test/external/**/*.test.js --timeout 10000",
-    "test-controller": "mocha rest/test/controller/**/*.test.js --timeout 1000"
+    "test": "mocha rest/test/**/*test.js --timeout 1000 --reporter mochawesome",
+    "test-external": "mocha rest/test/external/**/*.test.js --timeout 10000 --reporter mochawesome",
+    "test-controller": "mocha rest/test/controller/**/*.test.js --timeout 1000 --reporter mochawesome"
   },
   "repository": {
     "type": "git",
@@ -31,5 +31,8 @@
     "sinon": "^21.0.0",
     "supertest": "^7.1.4",
     "swagger-ui-express": "^5.0.1"
+  },
+  "devDependencies": {
+    "mochawesome": "^7.1.4"
   }
 }
