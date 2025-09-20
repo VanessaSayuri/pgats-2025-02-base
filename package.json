@@ -5,9 +5,11 @@
   "main": "index.js",
   "scripts": {
     "start-rest": "node rest/server.js",
+    "start-graphql": "node graphql/server.js",
     "test": "mocha rest/test/**/*test.js --timeout 1000 --reporter mochawesome",
-    "test-external": "mocha rest/test/external/**/*.test.js --timeout 10000 --reporter mochawesome",
-    "test-controller": "mocha rest/test/controller/**/*.test.js --timeout 1000 --reporter mochawesome"
+    "test-external-rest": "mocha rest/test/external/**/*.test.js --timeout 10000 --reporter mochawesome",
+    "test-controller-rest": "mocha rest/test/controller/**/*.test.js --timeout 1000 --reporter mochawesome",
+    "test-external-graphql": "mocha graphql/test/external/**/*.test.js --timeout 10000 --reporter mochawesome"
   },
   "repository": {
     "type": "git",
