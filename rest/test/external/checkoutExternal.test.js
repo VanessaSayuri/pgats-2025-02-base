@@ -40,7 +40,7 @@ describe('Checkout External', () => {
             
             expect(resposta.body).to.deep.equal(respostaEsperada)
         })
-                it('Quando informo id de produto valido e pagamento com cartão de crédito status 200', async () => {
+        it('Quando informo id de produto valido e pagamento com cartão de crédito status 200', async () => {
 
             const resposta = await request('http://localhost:3000')
                 .post('/api/checkout')
@@ -63,9 +63,7 @@ describe('Checkout External', () => {
                 });
 
             expect(resposta.status).to.equal(200);
-            
             respostaEsperada = require('../fixture/respostas/quandoInformoValoresValidosCartaoDeCreditoTenhoSucessoCom200.json')
-            
             expect(resposta.body).to.deep.equal(respostaEsperada)
         })
         
@@ -82,17 +80,32 @@ describe('Checkout External', () => {
                         }
                     ],
                     freight: 0,
-                    paymentMethod: "boleto",
-                    cardData: {
-                        number: "string",
-                        name: "string",
-                        expiry: "string",
-                        cvv: "string"
-                    }
+                    paymentMethod: "boleto"
+
                 });
                 
             expect(resposta.status).to.equal(400);
             expect(resposta.body).to.have.property('error', 'Produto não encontrado')
+        })
+         it('Quando informo id de produto valido e pagamento com cartão de crédito inválido recebo status 400', async () => {
+
+            const resposta = await request('http://localhost:3000')
+                .post('/api/checkout')
+                .set('Authorization', `Bearer ${token}`)
+                .send({
+                    items: [
+                        {
+                        productId: 2,
+                        quantity: 2
+                        }
+                    ],
+                    freight: 0,
+                    paymentMethod: "credit_card"
+
+                });
+
+            expect(resposta.status).to.equal(400);
+            expect(resposta.body).to.have.property('error', 'Dados do cartão obrigatórios para pagamento com cartão')
         })
     })
 })
