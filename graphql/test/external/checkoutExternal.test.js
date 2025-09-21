@@ -21,6 +21,7 @@ describe('Checkout External - GraphQL', () => {
             .send(pagamentoBoleto);
             
         expect(respostaPagamentoBoleto.status).to.equal(200);     
+        
     })
      it('Quando informo id de produto valido e pagamento com cartão de crédito status 200', async () => {
     
@@ -30,7 +31,7 @@ describe('Checkout External - GraphQL', () => {
             .set('Authorization', `Bearer ${token}`)
             .send(pagamentoCartaoDeCredito)
     
-                expect(resposta.status).to.equal(200);
+        expect(resposta.status).to.equal(200);
                 
         })
 

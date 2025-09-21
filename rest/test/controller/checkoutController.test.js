@@ -95,19 +95,36 @@ describe('Checkout Controller', () => {
                         }
                     ],
                     freight: 0,
-                    paymentMethod: "boleto",
-                    cardData: {
-                        number: "string",
-                        name: "string",
-                        expiry: "string",
-                        cvv: "string"
-                    }
+                    paymentMethod: "boleto"
+
                 });
                 
             expect(resposta.status).to.equal(400);
             expect(resposta.body).to.have.property('error', 'Produto não encontrado')
         });
+        it('Mock: Quando informo id de produto valido e pagamento com cartão de crédito inválido recebo status 400', async () => {
 
+        const checkoutServiceMock = sinon.stub(checkoutService, 'checkout');
+        checkoutServiceMock.throws(new Error('Dados do cartão obrigatórios para pagamento com cartão'))
+        
+        const resposta = await request(app)
+            .post('/api/checkout')
+            .set('Authorization', `Bearer ${token}`)
+            .send({
+                items: [
+                    {
+                    productId: 2,
+                    quantity: 2
+                    }
+                ],
+                freight: 0,
+                paymentMethod: "credit_card"
+
+            });
+
+        expect(resposta.status).to.equal(400);
+        expect(resposta.body).to.have.property('error', 'Dados do cartão obrigatórios para pagamento com cartão')
+        })
         //Resetar o mock
         afterEach(() => {
             sinon.restore();
