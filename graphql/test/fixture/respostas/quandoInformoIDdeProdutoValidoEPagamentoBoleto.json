@@ -1,0 +1,16 @@
+{
+  "data": {
+    "checkout": {
+      "freight": 0,
+      "items": [
+        {
+          "productId": 2,
+          "quantity": 2
+        }
+      ],
+      "paymentMethod": "boleto",
+      "userId": "1",
+      "valorFinal": 400
+    }
+  }
+}

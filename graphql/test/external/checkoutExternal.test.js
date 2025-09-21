@@ -21,7 +21,11 @@ describe('Checkout External - GraphQL', () => {
             .send(pagamentoBoleto);
             
         expect(respostaPagamentoBoleto.status).to.equal(200);     
-        
+
+        respostaEsperadaBoleto = require('../fixture/respostas/quandoInformoIDdeProdutoValidoEPagamentoBoleto.json')
+        expect(respostaPagamentoBoleto.body).to.deep.equal(respostaEsperadaBoleto)
+
+
     })
      it('Quando informo id de produto valido e pagamento com cartão de crédito status 200', async () => {
     
@@ -32,7 +36,10 @@ describe('Checkout External - GraphQL', () => {
             .send(pagamentoCartaoDeCredito)
     
         expect(resposta.status).to.equal(200);
-                
+
+        respostaEsperada = require('../fixture/respostas/quandoInformoIDdeProdutoValidoEPagamentoComCartaoDeCredito.json')
+        expect(resposta.body).to.deep.equal(respostaEsperada)
+
         })
 
     it('Quando informo id de produto invalido recebo mensagem de erro', async () => {
