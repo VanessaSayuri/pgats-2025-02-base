@@ -17,9 +17,7 @@ const users = new SharedArray('users', function () {
 const postCheckoutDurationTrend = new Trend ('post_checkout_duration')
 
 export const options = {
-    // vus: 10,
-    // // duration: '15s',
-    // iterations: 10,
+
     thresholds: {
         http_req_duration: ['p(95)<2000'], // 95% das requisições devem ser < 2s
     },
@@ -50,7 +48,6 @@ export default function () {
             password: user.password,
         });
 
-        console.log(payload);
         const params = { headers: { 'Content-Type': 'application/json' } };
         const res = http.post(url, payload, params);
         check(res, { 'register status 201': (r) => r.status === 201 });
