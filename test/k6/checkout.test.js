@@ -5,16 +5,32 @@ import { getBaseUrl } from './helpers/baseUrl.js';
 import { login } from './helpers/login.js';
 import { Trend } from 'k6/metrics';
 
+import { SharedArray } from 'k6/data';
+
+
+const users = new SharedArray('users', function () {
+  return JSON.parse(open('./data/login.test.data.json'));
+});
+
+
+
 const postCheckoutDurationTrend = new Trend ('post_checkout_duration')
 
 export const options = {
-    vus: 10,
-    // duration: '15s',
-    iterations: 10,
+    // vus: 10,
+    // // duration: '15s',
+    // iterations: 10,
     thresholds: {
         http_req_duration: ['p(95)<2000'], // 95% das requisições devem ser < 2s
     },
+    stages: [
+        { duration: '3s', target: 5 }, // Ramp up
+        { duration: '5s', target: 10 },  //Average
+        { duration: '10s', target: 35 }, // Spike
+        { duration: '3s', target: 0 },  // Ramp down
+    ],
 };
+
 
 const password = 'senha123';
 
@@ -22,12 +38,16 @@ export default function () {
     let email, token;
 
     group('Registrar usuário', function () {
+        const user = users[(__VU - 1) % users.length] // Reaproveitamento de dados
+        
         email = generateRandomEmail();
+        
         const url = `${getBaseUrl()}/api/users/register`;
+        
         const payload = JSON.stringify({
-            name: `User_${__VU}_${__ITER}`,
+            name: user.name,
             email: email,
-            password: password,
+            password: user.password,
         });
 
         console.log(payload);
