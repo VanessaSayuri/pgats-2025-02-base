@@ -32,14 +32,14 @@ export const options = {
 };
 
 
-const password = 'senha123';
+const password = ''
+const user = users[(__VU - 1) % users.length] // Reaproveitamento de dados
 
 export default function () {
     let email, token;
 
     group('Registrar usuário', function () {
-        const user = users[(__VU - 1) % users.length] // Reaproveitamento de dados
-        
+
         email = generateRandomEmail();
         
         const url = `${getBaseUrl()}/api/users/register`;
@@ -57,7 +57,8 @@ export default function () {
     });
 
     group('Login usuário', function () {
-        token = login(email, password);
+
+        token = login(email, user.password);
         check(token, { 'token exists': (t) => !!t });
     });
 
